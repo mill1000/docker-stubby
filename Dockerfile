@@ -11,5 +11,6 @@ RUN make && make install DESTDIR=/getdns-install
 FROM alpine:latest
 RUN apk add --update yaml tini
 COPY --from=0 /getdns-install /
+ENV OPTIONS=""
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["/usr/local/bin/stubby"]
+CMD ["/bin/sh", "-c", "/usr/local/bin/stubby $OPTIONS"]
